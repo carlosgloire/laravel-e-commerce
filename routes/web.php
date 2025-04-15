@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WhishlistController;
 use App\Http\Middleware\AuthAdmin;
@@ -23,10 +24,21 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
+Route::controller(SocialiteController::class)->group(function(){
+    Route::get('/auth/google', 'google_login')->name('auth.google');
+    Route::get('/auth/google-callback', 'googleAuthentification')->name('auth.google.callback');
+
+});
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 Route::get('/shop/{product_slug}/detail',[ShopController::class,'product_detail'])->name('shop.product.detail');
+
+Route::get('/contact-us', [HomeController::class, 'contact'])->name('home.contact');
+Route::post('/contact/store', [HomeController::class, 'contact_store'])->name('home.contact.store');
+
+Route::get( '/search', [HomeController::class, 'search'])->name('home.search');
 
 Route::get('/cart',[CartController::class,'index'])->name('cart.index');
 Route::post('/cart/add',[CartController::class,'add_to_cart'])->name('cart.add');
@@ -46,11 +58,24 @@ Route::post('/whishlist/move-to-cart/{rowId}',[WhishlistController::class,'move_
 
 Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout');
 Route::post('/place-an-order',[CartController::class,'place_an_order'])->name('cart.place.order');
+Route::get('/order-confirmation',[CartController::class,'order_confirmation'])->name('cart.order.confirmation');
+
+// Forgot Password
+Route::get('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Reset Password
+Route::get('reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update');
 
 
 //Route for a user
 Route::middleware(['auth'])->group(function(){
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');
+    Route::get('/account-orders', [UserController::class, 'orders'])->name('user.orders');
+    Route::get('/account-order/{order_id}/details', [UserController::class, 'order_details'])->name('user.order.details');
+    Route::put('/account-order/cancel-order', [UserController::class, 'order_cancel'])->name('user.order.cancel');
+
 });
 //Route for admin
 //This means each page to be accessed the user should be autheficated 
@@ -83,5 +108,18 @@ Route::middleware(['auth',AuthAdmin::class])->group(function(){
     Route::get('/admin/coupon/{id}/edit', [AdminController::class, 'coupon_edit'])->name('admin.coupon.edit');
     Route::put('/admin/coupon/update', [AdminController::class, 'coupon_update'])->name('admin.coupon.update');
     Route::delete('/admin/coupon/{id}/delete', [AdminController::class, 'coupon_delete'])->name('admin.coupon.delete');
+
+    Route::get('/admin/orders',[AdminController::class,'orders'])->name('admin.orders');
+    Route::get('/admin/order/{order_id}/details',[AdminController::class,'order_details'])->name('admin.order.details');
+    Route::put('/admin/order/update-status',[AdminController::class,'update_order_status'])->name('admin.order.status.update');
+
+    Route::get('/admin/slides',[AdminController::class,'slides'])->name('admin.slides');
+    Route::get('/admin/slide-add',[AdminController::class,'slide_add'])->name('admin.slide.add');
+    Route::post('/admin/slide/store',[AdminController::class,'slide_store'])->name('admin.slide.store');
+    Route::get('/admin/slide/{id}/edit',[AdminController::class,'slide_edit'])->name('admin.slide.edit');
+    Route::put('/admin/slide/update',[AdminController::class,'slide_update'])->name('admin.slide.update');
+    Route::delete('/admin/slide/{id}/delete',[AdminController::class,'slide_delete'])->name('admin.slide.delete');
+
+    Route::get('/admin/contact',[AdminController::class,'contact'])->name('admin.contact');
 });
 

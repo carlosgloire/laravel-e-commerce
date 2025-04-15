@@ -11,6 +11,7 @@
         "intervention/image-laravel": "^1.2",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
+        "laravel/socialite": "^5.19",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.6",
         "surfsidemedia/shoppingcart": "^2.0"

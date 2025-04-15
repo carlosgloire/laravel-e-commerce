@@ -41,8 +41,15 @@
     
                   <div class="customer-option mt-4 text-center">
                     <span class="text-secondary">No account yet?</span>
-                    <a href="{{route('register')}}" class="btn-text js-show-register">Create Account</a> 
+                    <a href="{{route('register')}}" class="btn-text js-show-register">Create Account</a>
+                    <a href="{{route('password.request')}}" class="btn-text js-show-register">Forgot Password?</a>
                   </div>
+                  <div class="social-login mt-4 text-center">
+                    <p class="text-secondary mb-3">Or log in with</p>
+                    <a href="{{ route('auth.google') }}" class="btn btn-outline-danger">
+                        <i class="fab fa-google me-2"></i> Log In with Google
+                    </a>
+                </div>
                 </form>
               </div>
             </div>

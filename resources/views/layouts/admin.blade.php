@@ -121,7 +121,7 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href="orders.html" class="">
+                                            <a href="{{route('admin.orders')}}" class="">
                                                 <div class="text">Orders</div>
                                             </a>
                                         </li>
@@ -133,9 +133,9 @@
                                     </ul>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="slider.html" class="">
+                                    <a href="{{route('admin.slides')}}" class="">
                                         <div class="icon"><i class="icon-image"></i></div>
-                                        <div class="text">Slider</div>
+                                        <div class="text">Slides</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
@@ -144,7 +144,12 @@
                                         <div class="text">Coupns</div>
                                     </a>
                                 </li>
-
+                                <li class="menu-item">
+                                    <a href="{{route('admin.contact')}}" class="">
+                                        <div class="icon"><i class="icon-mail"></i></div>
+                                        <div class="text">Messages</div>
+                                    </a>
+                                </li>
                                 <li class="menu-item">
                                     <a href="users.html" class="">
                                         <div class="icon"><i class="icon-user"></i></div>
@@ -473,103 +478,6 @@
     <script src="/js/main.js"></script>
     
     @stack('scripts')
-    <script>
-        (function ($) {
-
-            var tfLineChart = (function () {
-
-                var chartBar = function () {
-
-                    var options = {
-                        series: [{
-                            name: 'Total',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 273.22, 208.12, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        }, {
-                            name: 'Pending',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 273.22, 208.12, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        },
-                        {
-                            name: 'Delivered',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        }, {
-                            name: 'Canceled',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        }],
-                        chart: {
-                            type: 'bar',
-                            height: 325,
-                            toolbar: {
-                                show: false,
-                            },
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                                columnWidth: '10px',
-                                endingShape: 'rounded'
-                            },
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        legend: {
-                            show: false,
-                        },
-                        colors: ['#2377FC', '#FFA500', '#078407', '#FF0000'],
-                        stroke: {
-                            show: false,
-                        },
-                        xaxis: {
-                            labels: {
-                                style: {
-                                    colors: '#212529',
-                                },
-                            },
-                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                        },
-                        yaxis: {
-                            show: false,
-                        },
-                        fill: {
-                            opacity: 1
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: function (val) {
-                                    return "$ " + val + ""
-                                }
-                            }
-                        }
-                    };
-
-                    chart = new ApexCharts(
-                        document.querySelector("#line-chart-8"),
-                        options
-                    );
-                    if ($("#line-chart-8").length > 0) {
-                        chart.render();
-                    }
-                };
-
-                /* Function ============ */
-                return {
-                    init: function () { },
-
-                    load: function () {
-                        chartBar();
-                    },
-                    resize: function () { },
-                };
-            })();
-
-            jQuery(document).ready(function () { });
-
-            jQuery(window).on("load", function () {
-                tfLineChart.load();
-            });
-
-            jQuery(window).on("resize", function () { });
-        })(jQuery);
-    </script>
+    
   </body>
 </html>

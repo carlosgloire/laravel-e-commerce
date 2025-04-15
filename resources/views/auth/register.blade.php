@@ -77,6 +77,12 @@
                     <span class="text-secondary">Have an account?</span>
                     <a href="{{route('login')}}" class="btn-text js-show-register">Login to your Account</a>
                   </div>
+                  <div class="social-login mt-4 text-center">
+                    <p class="text-secondary mb-3">Or sign up with</p>
+                    <a href="{{ route('auth.google') }}" class="btn btn-outline-danger">
+                        <i class="fab fa-google me-2"></i> Sign Up with Google
+                    </a>
+                </div>
                 </form>
               </div>
             </div>
