@@ -24,11 +24,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
-Route::controller(SocialiteController::class)->group(function(){
-    Route::get('/auth/google', 'google_login')->name('auth.google');
-    Route::get('/auth/google-callback', 'googleAuthentification')->name('auth.google.callback');
 
-});
+// Google Auth Routes
+Route::get('/auth/google', [SocialiteController::class, 'google_login'])->name('auth.google');
+Route::get('/auth/google/callback', [SocialiteController::class, 'googleAuthentification']);
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
